@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Международная Конференция | Нотариальная палата КР</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --night: #0A0E1A;
+    --deep: #141928;
+    --gold: #C9A84C;
+    --gold-light: #E2C47A;
+    --gold-dim: rgba(201,168,76,0.18);
+    --white: #F0EDE8;
+    --white-dim: rgba(240,237,232,0.75);
+    --white-faint: rgba(240,237,232,0.12);
+    --glass: rgba(14,18,32,0.55);
+    --radius: 12px;
+    --transition: 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--night);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+
+  /* ── LANGUAGE SWITCHER ── */
+  .lang-switcher {
+    position: fixed;
+    top: 24px;
+    right: 32px;
+    z-index: 100;
+    display: flex;
+    gap: 2px;
+    background: rgba(10,14,26,0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(201,168,76,0.25);
+    border-radius: 30px;
+    padding: 4px;
+  }
+
+  .lang-btn {
+    background: none;
+    border: none;
+    color: rgba(240,237,232,0.45);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    cursor: pointer;
+    border-radius: 24px;
+    transition: all 0.25s ease;
+  }
+
+  .lang-btn.active {
+    background: var(--gold);
+    color: var(--night);
+  }
+
+  .lang-btn:hover:not(.active) {
+    color: var(--white);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 80px 24px 60px;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  /* Cinematic gradient simulating night Bishkek — video replaced by layered gradient */
+  .hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 70%, rgba(30,45,90,0.9) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(201,168,76,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 20%, rgba(40,60,110,0.5) 0%, transparent 60%),
+      linear-gradient(170deg, #060912 0%, #0e1630 40%, #0a1525 70%, #050810 100%);
+  }
+
+  /* City lights bokeh */
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle 3px at 15% 75%, rgba(201,168,76,0.6), transparent),
+      radial-gradient(circle 2px at 25% 80%, rgba(180,200,255,0.5), transparent),
+      radial-gradient(circle 4px at 35% 70%, rgba(201,168,76,0.4), transparent),
+      radial-gradient(circle 2px at 50% 85%, rgba(180,200,255,0.4), transparent),
+      radial-gradient(circle 3px at 65% 72%, rgba(201,168,76,0.5), transparent),
+      radial-gradient(circle 2px at 75% 78%, rgba(180,200,255,0.3), transparent),
+      radial-gradient(circle 5px at 85% 68%, rgba(201,168,76,0.35), transparent),
+      radial-gradient(circle 2px at 10% 60%, rgba(255,220,150,0.4), transparent),
+      radial-gradient(circle 2px at 90% 55%, rgba(200,180,255,0.3), transparent),
+      radial-gradient(ellipse 200px 60px at 50% 90%, rgba(201,168,76,0.06), transparent);
+    animation: shimmer 8s ease-in-out infinite alternate;
+  }
+
+  @keyframes shimmer {
+    from { opacity: 0.7; }
+    to { opacity: 1; }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(6,9,18,0.3) 0%,
+      rgba(6,9,18,0.1) 40%,
+      rgba(6,9,18,0.5) 80%,
+      rgba(6,9,18,0.85) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+  }
+
+  .hero-emblem {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.3s forwards;
+  }
+
+  .emblem-seal {
+    width: 56px;
+    height: 56px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--gold);
+    font-size: 20px;
+  }
+
+  .emblem-text {
+    text-align: left;
+  }
+
+  .emblem-text .org-name {
+    display: block;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    line-height: 1.4;
+  }
+
+  .emblem-text .org-sub {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white-dim);
+    margin-top: 2px;
+  }
+
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 0.5s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-style: italic;
+    font-size: clamp(28px, 5vw, 56px);
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin-bottom: 16px;
+    color: var(--white);
+    overflow: hidden;
+  }
+
+  .hero-title .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px);
+    animation: wordUp 0.7s ease forwards;
+  }
+
+  .hero-title .line-break { display: block; height: 0; }
+
+  .hero-date {
+    font-size: clamp(13px, 2vw, 16px);
+    letter-spacing: 0.12em;
+    color: var(--gold-light);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.6s forwards;
+  }
+
+  .hero-location {
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: var(--white-dim);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 1.8s forwards;
+  }
+
+  .hero-location span {
+    color: var(--gold);
+    margin: 0 6px;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--gold) 0%, #a87c2a 100%);
+    color: var(--night);
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 16px 36px;
+    border-radius: 40px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: fadeUp 0.9s ease 2s forwards;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -80%;
+    width: 60%;
+    height: 200%;
+    background: rgba(255,255,255,0.25);
+    transform: skewX(-20deg);
+    animation: sheen 3.5s ease 3s infinite;
+  }
+
+  @keyframes sheen {
+    0% { left: -80%; opacity: 0; }
+    10% { opacity: 1; }
+    50% { left: 140%; opacity: 0; }
+    100% { left: 140%; opacity: 0; }
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.35);
+  }
+
+  .btn-primary svg { flex-shrink: 0; }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s ease 2.8s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  .scroll-label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201,168,76,0.5);
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(24px); }
+  }
+
+  @keyframes wordUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; }
+    from { opacity: 0; }
+  }
+
+  /* ── SECTION SHARED ── */
+  .section {
+    padding: 100px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-eyebrow::after {
+    content: '';
+    display: block;
+    width: 32px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(32px, 4.5vw, 52px);
+    line-height: 1.15;
+    margin-bottom: 24px;
+    color: var(--white);
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  /* ── ABOUT SECTION ── */
+  .about-section {
+    border-top: 1px solid rgba(201,168,76,0.15);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+    margin-bottom: 80px;
+  }
+
+  .about-body {
+    font-size: 15px;
+    color: var(--white-dim);
+    line-height: 1.8;
+  }
+
+  .about-body p + p { margin-top: 16px; }
+
+  .about-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .stat-item {
+    border-top: 1px solid rgba(201,168,76,0.2);
+    padding-top: 16px;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--white-dim);
+    text-transform: uppercase;
+  }
+
+  /* ── GLASS CARDS (TOPICS) ── */
+  .topics-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(20px, 3vw, 28px);
+    margin-bottom: 32px;
+    color: var(--white-dim);
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+
+  .glass-card {
+    background: var(--glass);
+    border: 1px solid rgba(201,168,76,0.18);
+    border-radius: var(--radius);
+    padding: 32px 28px;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    position: relative;
+    overflow: hidden;
+    transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  .glass-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
+  }
+
+  .glass-card:hover {
+    border-color: rgba(201,168,76,0.4);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 40px rgba(201,168,76,0.06);
+    transform: translateY(-4px);
+  }
+
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    color: var(--gold);
+    font-size: 20px;
+  }
+
+  .card-num {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: rgba(201,168,76,0.4);
+    margin-bottom: 10px;
+  }
+
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 10px;
+    color: var(--white);
+    line-height: 1.3;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    color: rgba(240,237,232,0.55);
+    line-height: 1.7;
+  }
+
+  /* ── GOLDEN DIVIDER ── */
+  .gold-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 60px 0;
+  }
+
+  .gold-divider::before,
+  .gold-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+  }
+
+  .gold-divider-gem {
+    width: 8px;
+    height: 8px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER PREVIEW ── */
+  .section-footer-note {
+    text-align: center;
+    font-size: 13px;
+    color: rgba(240,237,232,0.35);
+    margin-top: 60px;
+    letter-spacing: 0.05em;
+  }
+
+  .section-footer-note em {
+    color: var(--gold);
+    font-style: normal;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .lang-switcher { top: 16px; right: 16px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-stats { grid-template-columns: 1fr 1fr; }
+    .section { padding: 70px 20px; }
+    .hero { padding: 100px 20px 80px; }
+  }
+
+  @media (max-width: 480px) {
+    .about-stats { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .cards-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── PREFERS REDUCED MOTION ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Language Switcher -->
+<div class="lang-switcher" role="navigation" aria-label="Language">
+  <button class="lang-btn active" onclick="setLang('ru')" id="btn-ru">RU</button>
+  <button class="lang-btn" onclick="setLang('en')" id="btn-en">EN</button>
+</div>
+
+<!-- ══ BLOCK 1: HERO ══ -->
+<section class="hero" role="banner">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <div class="hero-content">
+    <!-- Emblem -->
+    <div class="hero-emblem">
+      <div class="emblem-seal" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+          <path d="M12 2L3 7v10l9 5 9-5V7z"/>
+          <path d="M12 12m-3 0a3 3 0 106 0 3 3 0 10-6 0"/>
+        </svg>
+      </div>
+      <div class="emblem-text">
+        <span class="org-name" data-ru="Нотариальная Палата" data-en="Notarial Chamber">Нотариальная Палата</span>
+        <span class="org-sub" data-ru="Кыргызской Республики" data-en="of the Kyrgyz Republic">Кыргызской Республики</span>
+      </div>
+    </div>
+
+    <!-- Eyebrow -->
+    <p class="hero-label" data-ru="Международная конференция · Бишкек, 2025" data-en="International Conference · Bishkek, 2025">
+      Международная конференция · Бишкек, 2025
+    </p>
+
+    <!-- Title — words animate in sequence -->
+    <h1 class="hero-title" id="hero-title" aria-label="Противодействие легализации преступных доходов и финансированию терроризма в нотариальной практике"></h1>
+
+    <!-- Date -->
+    <p class="hero-date" data-ru="6 — 8 Августа 2025" data-en="August 6 — 8, 2025">6 — 8 Августа 2025</p>
+
+    <!-- Location -->
+    <p class="hero-location">
+      <span aria-hidden="true">◆</span>
+      <span data-ru="Отель Novotel · пр. Манаса, 16 · Бишкек" data-en="Novotel Hotel · 16 Manas Ave · Bishkek">
+        Отель Novotel · пр. Манаса, 16 · Бишкек
+      </span>
+      <span aria-hidden="true">◆</span>
+    </p>
+
+    <!-- CTA -->
+    <a href="#" id="cta-whatsapp" class="btn-primary" aria-label="Подтвердить участие через WhatsApp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.136.561 4.14 1.541 5.879L.057 23.886a.5.5 0 00.605.63l6.213-1.632A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.574 9.574 0 01-4.9-1.344l-.351-.208-3.635.955.968-3.538-.228-.364A9.572 9.572 0 012.4 12c0-5.29 4.31-9.6 9.6-9.6 5.29 0 9.6 4.31 9.6 9.6 0 5.29-4.31 9.6-9.6 9.6z"/>
+      </svg>
+      <span data-ru="Подтвердить участие" data-en="Confirm Attendance">Подтвердить участие</span>
+    </a>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span class="scroll-label" data-ru="Прокрутить" data-en="Scroll">Прокрутить</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ BLOCK 2: ABOUT + TOPICS ══ -->
+<div style="background: linear-gradient(180deg, var(--night) 0%, #0c1220 100%);">
+  <div class="section about-section">
+
+    <p class="section-eyebrow" data-ru="О конференции" data-en="About the Conference">О конференции</p>
+
+    <div class="about-grid">
+      <div>
+        <h2 class="section-title">
+          <em data-ru="Международный диалог" data-en="International Dialogue">Международный диалог</em>
+          <br>
+          <span data-ru="в нотариальном праве" data-en="in Notarial Law">в нотариальном праве</span>
+        </h2>
+        <div class="about-body">
+          <p data-ru="Нотариальная палата Кыргызской Республики проводит конференцию с участием экспертов из стран СНГ, Европы и Азии. Ключевая тема — выработка современных механизмов противодействия легализации преступных доходов и финансированию терроризма в нотариальной практике."
+             data-en="The Notarial Chamber of the Kyrgyz Republic is hosting a conference with experts from CIS countries, Europe, and Asia. The central theme is developing modern mechanisms to combat money laundering and terrorism financing within notarial practice.">
+            Нотариальная палата Кыргызской Республики проводит конференцию с участием экспертов из стран СНГ, Европы и Азии. Ключевая тема — выработка современных механизмов противодействия легализации преступных доходов и финансированию терроризма в нотариальной практике.
+          </p>
+          <p data-ru="Конференция объединит практикующих нотариусов, правоведов, представителей государственных структур и международных организаций для совместного обмена опытом и поиска практических решений."
+             data-en="The conference will bring together practicing notaries, legal scholars, government representatives, and international organizations to share expertise and develop practical solutions.">
+            Конференция объединит практикующих нотариусов, правоведов, представителей государственных структур и международных организаций для совместного обмена опытом и поиска практических решений.
+          </p>
+        </div>
+      </div>
+
+      <div class="about-stats">
+        <div class="stat-item">
+          <div class="stat-num">15+</div>
+          <div class="stat-label" data-ru="стран-участниц" data-en="Participating Countries">стран-участниц</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label" data-ru="дня программы" data-en="Days of Programme">дня программы</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">200+</div>
+          <div class="stat-label" data-ru="делегатов" data-en="Delegates">делегатов</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">12</div>
+          <div class="stat-label" data-ru="спикеров" data-en="Expert Speakers">спикеров</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="gold-divider" aria-hidden="true">
+      <div class="gold-divider-gem"></div>
+    </div>
+
+    <!-- Topics -->
+    <p class="section-eyebrow" data-ru="Ключевые направления" data-en="Key Topics">Ключевые направления</p>
+    <h3 class="topics-title" data-ru="Четыре тематических трека конференции" data-en="Four Conference Thematic Tracks">Четыре тематических трека конференции</h3>
+
+    <div class="cards-grid" id="cards-grid">
+
+      <div class="glass-card" style="transition-delay:0s">
+        <div class="card-num">01</div>
+        <div class="card-icon" aria-hidden="true">⚖</div>
+        <div class="card-title" data-ru="ПОД/ФТ в нотариате" data-en="AML/CFT in Notarial Practice">ПОД/ФТ в нотариате</div>
+        <div class="card-desc"
+          data-ru="Практические инструменты противодействия отмыванию денег и финансированию терроризма с учётом специфики нотариальной деятельности."
+          data-en="Practical tools against money laundering and terrorism financing, tailored to the specifics of notarial activity.">
+          Практические инструменты противодействия отмыванию денег и финансированию терроризма с учётом специфики нотариальной деятельности.
+        </div>
+      </div>
+
+      <div class="glass-card" style="transition-delay:0.1s">
+        <div class="card-num">02</div>
+        <div class="card-icon" aria-hidden="true">🌐</div>
+        <div class="card-title" data-ru="Международный опыт" data-en="International Experience">Международный опыт</div>
+        <div class="card-desc"
+          data-ru="Сравнительный анализ лучших практик нотариального регулирования в странах СНГ, ЕС и Азии. Успешные кейсы и модели адаптации."
+          data-en="Comparative analysis of best notarial regulatory practices across CIS, EU, and Asian countries. Successful cases and adaptation models.">
+          Сравнительный анализ лучших практик нотариального регулирования в странах СНГ, ЕС и Азии. Успешные кейсы и модели адаптации.
+        </div>
+      </div>
+
+      <div class="glass-card" style="transition-delay:0.2s">
+        <div class="card-num">03</div>
+        <div class="card-icon" aria-hidden="true">💡</div>
+        <div class="card-title" data-ru="Цифровые технологии" data-en="Digital Technologies">Цифровые технологии</div>
+        <div class="card-desc"
+          data-ru="Электронный нотариат, блокчейн-верификация документов и цифровая идентификация клиентов в условиях роста киберрисков."
+          data-en="E-notarization, blockchain document verification, and digital client identification amid growing cyber risks.">
+          Электронный нотариат, блокчейн-верификация документов и цифровая идентификация клиентов в условиях роста киберрисков.
+        </div>
+      </div>
+
+      <div class="glass-card" style="transition-delay:0.3s">
+        <div class="card-num">04</div>
+        <div class="card-icon" aria-hidden="true">🤝</div>
+        <div class="card-title" data-ru="Деловые переговоры" data-en="Business Networking">Деловые переговоры</div>
+        <div class="card-desc"
+          data-ru="Выездная сессия в природном парке Ала-Арча и торжественный Гала-ужин для укрепления профессиональных связей на международном уровне."
+          data-en="Outdoor session at Ala-Archa Nature Park and a formal Gala dinner to strengthen international professional ties.">
+          Выездная сессия в природном парке Ала-Арча и торжественный Гала-ужин для укрепления профессиональных связей на международном уровне.
+        </div>
+      </div>
+
+    </div>
+
+    <p class="section-footer-note" data-ru="Следующие блоки: Гид по Бишкеку · Программа · Контакты кураторов" data-en="Coming next: Bishkek Guide · Programme · Coordinator Contacts">
+      Следующие блоки: <em>Гид по Бишкеку</em> · Программа · Контакты кураторов
+    </p>
+
+  </div>
+</div>
+
+<!-- ── JS ── -->
+<script>
+  // ── LANGUAGE ──
+  const LANGS = {
+    ru: {
+      whatsapp: 'https://wa.me/996XXXXXXXXX?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21+%D0%AF+%D1%85%D0%BE%D1%87%D1%83+%D0%BF%D0%BE%D0%B4%D1%82%D0%B2%D0%B5%D1%80%D0%B4%D0%B8%D1%82%D1%8C+%D1%81%D0%B2%D0%BE%D1%91+%D1%83%D1%87%D0%B0%D1%81%D1%82%D0%B8%D0%B5+%D0%B2+%D0%9C%D0%B5%D0%B6%D0%B4%D1%83%D0%BD%D0%B0%D1%80%D0%BE%D0%B4%D0%BD%D0%BE%D0%B9+%D0%BA%D0%BE%D0%BD%D1%84%D0%B5%D1%80%D0%B5%D0%BD%D1%86%D0%B8%D0%B8+%D0%9D%D0%BE%D1%82%D0%B0%D1%80%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B9+%D0%BF%D0%B0%D0%BB%D0%B0%D1%82%D1%8B+%D0%9A%D0%A0.+%D0%9C%D0%BE%D0%B8+%D0%B4%D0%B0%D0%BD%D0%BD%D1%8B%D0%B5%3A+%D0%A4%D0%98%D0%9E+%5B%D0%97%D0%B0%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%5D%2C+%D0%A1%D1%82%D1%80%D0%B0%D0%BD%D0%B0+%5B%D0%97%D0%B0%D0%BF%D0%BE%D0%BB%D0%BD%D0%B8%D1%82%D0%B5%5D.',
+      title: ['Противодействие', 'легализации', 'преступных доходов', 'и финансированию', 'терроризма', 'в нотариальной практике']
+    },
+    en: {
+      whatsapp: 'https://wa.me/996XXXXXXXXX?text=Hello!+I+would+like+to+confirm+my+participation+in+the+International+Conference+of+the+Notarial+Chamber+of+the+KR.+My+details%3A+Full+Name+%5BFill+in%5D%2C+Country+%5BFill+in%5D.',
+      title: ['Combating', 'Money Laundering', 'and Terrorism', 'Financing', 'in Notarial', 'Practice']
+    }
+  };
+
+  let currentLang = 'ru';
+  let titleAnimated = false;
+
+  function setLang(lang) {
+    currentLang = lang;
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-' + lang).classList.add('active');
+
+    // Update all data-{lang} elements
+    document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+      el.textContent = el.getAttribute('data-' + lang);
+    });
+
+    // Update WhatsApp link
+    document.getElementById('cta-whatsapp').href = LANGS[lang].whatsapp;
+
+    // Re-animate title
+    buildTitle(lang);
+  }
+
+  function buildTitle(lang) {
+    const container = document.getElementById('hero-title');
+    container.innerHTML = '';
+    const words = LANGS[lang].title;
+    words.forEach((word, i) => {
+      const span = document.createElement('span');
+      span.className = 'word';
+      span.textContent = word + (i < words.length - 1 ? '\u00a0' : '');
+      span.style.animationDelay = (0.7 + i * 0.12) + 's';
+      container.appendChild(span);
+      if (i === 2 || i === 4) {
+        const br = document.createElement('br');
+        container.appendChild(br);
+      }
+    });
+  }
+
+  // Init
+  buildTitle('ru');
+  document.getElementById('cta-whatsapp').href = LANGS['ru'].whatsapp;
+
+  // ── SCROLL REVEAL for glass cards ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const cards = entry.target.querySelectorAll('.glass-card');
+        cards.forEach((card, i) => {
+          setTimeout(() => card.classList.add('visible'), i * 120);
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('#cards-grid').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
